@@ -1,8 +1,42 @@
 <template>
-  <div class="syrup"></div>
+  <div class="syrup" :style="syrupStyle" v-if="syrup !== 'none'"></div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+export default{
+  data(){
+    return{
+      syrup : 'hazelnut',
+      syrupStyle: {}
+    };
+  },
+}
+methods: {
+  updateAppearance(){
+    switch (this.syrup){
+      case 'hazelnut':
+      this.syrupStyle = {
+        color: 'brown',
+      }
+      break;
+      case 'caramel':
+      this.syrupStyle = {
+        color: 'lightbrown',
+      }
+      break;
+      case 'vanilla':
+      this.syrupStyle = {
+        color: 'white',
+      }
+      break;
+    }
+  }
+},
+mounted() {
+  this.updateAppearance();
+};
+
+</script>
 <style lang="scss" scoped>
 .syrup {
   transform: translateY(400%);
