@@ -1,10 +1,43 @@
 <template>
   <div class="froth">
-    <div v-for=" in 5" class="foam"></div>
+    <div v-for=" in 5" class="foam" :style="foamStyle" v-if="foam !== 'none'"></div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+export default{
+  data(){
+    return{
+      foam: 'milk',
+      foamStyle: {}
+    };
+  },
+}
+methods: {
+  updateAppearance(){
+    switch (this.foam){
+      case 'milk':
+      this.foamStyle = {
+        color: 'white',
+      }
+      break;
+      case 'cream':
+      this.foamStyle = {
+        color: 'lightyellow',
+      }
+      break;
+      case 'halfnhalf':
+      this.foamStyle = {
+        color: 'lightgrey',
+      }
+      break;
+    }
+  }
+},
+mounted() {
+  this.updateAppearance();
+};
+</script>
 <style lang="scss" scoped>
 .froth {
   overflow: visible;
