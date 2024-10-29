@@ -1,8 +1,42 @@
 <template>
-  <div class="baseBeverage"></div>
+  <div class="baseBeverage" :style="beverageStyle"></div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+export default{
+  data(){
+    return{
+      baseBeverage: 'black',
+      beverageStyle: {}
+    };
+  },
+}
+
+methods: {
+  updateAppearance(){
+    switch (this.baseBeverage){
+      case 'black':
+      this.beverageStyle = {
+        color: '#2C1608',
+      }
+      break;
+      case 'green':
+      this.beverageStyle = {
+        color: '#C1E1C1',
+      }
+      break;
+      case 'coffee':
+      this.beverageStyle = {
+        color: '#5A3825',
+      }
+      break;
+    }
+  }
+},
+mounted() {
+  this.updateAppearance();
+};
+</script>
 
 <style scoped>
 .baseBeverage {
