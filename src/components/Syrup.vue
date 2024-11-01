@@ -1,50 +1,39 @@
 <template>
-  <div class="syrup" :style="syrupStyle" v-if="syrup !== 'none'"></div>
+  <div class="syrup" :style="syrupStyle"></div>
 </template>
 
 <script setup lang="ts">
-export default{
-  data(){
-    return{
-      syrup : 'hazelnut',
-      syrupStyle: {}
-    };
-  },
-}
-methods: {
-  updateAppearance(){
-    switch (this.syrup){
-      case 'hazelnut':
-      this.syrupStyle = {
-        color: 'brown',
-      }
-      break;
-      case 'caramel':
-      this.syrupStyle = {
-        color: 'lightbrown',
-      }
-      break;
-      case 'vanilla':
-      this.syrupStyle = {
-        color: 'white',
-      }
-      break;
-    }
-  }
-},
-mounted() {
-  this.updateAppearance();
-};
+import { computed } from 'vue';
 
+const props = defineProps<{
+  syrup: string;
+}>();
+
+const syrupStyle = computed(() => {
+  const colors = {
+    'No Syrup': 'transparent',
+    'Vanilla': '#f3e5ab',
+    'Caramel': '#d2691e',
+    'Hazelnut': '#c68a4c'
+  };
+  return {
+    backgroundColor: colors[props.syrup] || 'transparent'
+  };
+});
 </script>
+
 <style lang="scss" scoped>
 .syrup {
   transform: translateY(400%);
-  background-color: #c6c6c6;
   position: relative;
   width: 100%;
   height: 20%;
   animation: pour-tea 2s 1s forwards;
   z-index: 2;
+}
+
+@keyframes pour-tea {
+  0% { transform: translateY(400%); }
+  100% { transform: translateY(0); }
 }
 </style>
