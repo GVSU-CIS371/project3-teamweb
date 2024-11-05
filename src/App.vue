@@ -21,8 +21,11 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import Beverage from "./components/Beverage.vue";
-import { temps, currentTemp } from "./stores/beverage";
+// Define reactive data
+const temps = ref(["Hot", "Cold"]);
+const currentTemp = ref("Hot");
 </script>
 
 <style lang="scss">
