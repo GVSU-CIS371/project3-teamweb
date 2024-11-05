@@ -18,6 +18,149 @@
       </li>
     </ul>
   </div>
+  <div>
+    <Beverage :base="currentBase === 'Coffee'" />
+    <ul>
+      <li>
+        <template v-for="base in base" :key="base">
+          <label>
+            <input
+              type="radio"
+              name="Coffee"
+              :id="`r${base}`"
+              :value="base"
+              v-model="currentBase"
+            />
+            {{ temp }}
+          </label>
+        </template>
+      </li>
+      <li>
+        <template v-for="base in base" :key="base">
+          <label>
+            <input
+              type="radio"
+              name="Black Tea"
+              :id="`r${base}`"
+              :value="base"
+              v-model="currentBase"
+            />
+            {{ temp }}
+          </label>
+        </template>
+      </li> 
+      <li>
+        <template v-for="base in base" :key="base">
+          <label>
+            <input
+              type="radio"
+              name="Green Tea"
+              :id="`r${base}`"
+              :value="base"
+              v-model="currentBase"
+            />
+            {{ temp }}
+          </label>
+        </template>
+      </li>     
+    </ul>
+  </div>
+  <div>
+    <Beverage :showCreamer="currentCreamer !=== 'No Creamer'" />
+    <ul>
+      <li>
+        <template v-for="creamer in creamer" :key="creamer">
+          <label>
+            <input
+              type="radio"
+              name="creamer"
+              :id="`r${creamer}`"
+              :value="Milk"
+              v-model="currentCreamer"
+            />
+            {{ creamer }}
+          </label>
+        </template>
+      </li>
+      <li>
+        <template v-for="creamer in creamer" :key="creamer">
+          <label>
+            <input
+              type="radio"
+              name="creamer"
+              :id="`r${creamer}`"
+              :value="Cream"
+              v-model="currentCreamer"
+            />
+            {{ creamer }}
+          </label>
+        </template>
+      </li>
+      <li>
+        <template v-for="creamer in creamer" :key="creamer">
+          <label>
+            <input
+              type="radio"
+              name="creamer"
+              :id="`r${creamer}`"
+              :value="Half-and-Half"
+              v-model="currentCreamer"
+            />
+            {{ creamer }}
+          </label>
+        </template>
+      </li>
+    </ul>
+  </div>
+
+    <div>
+    <Beverage :showSyrup="currentSyrup !=== 'No Syrup'" />
+    <ul>
+      <li>
+        <template v-for="syrup in syrup" :key="syrup">
+          <label>
+            <input
+              type="radio"
+              name="syrup"
+              :id="`r${syrup}`"
+              :value="Vanilla"
+              v-model="currentSyrup"
+            />
+            {{ syrup }}
+          </label>
+        </template>
+      </li>
+      <li>
+        <template v-for="syrup in syrup" :key="syrup">
+          <label>
+            <input
+              type="radio"
+              name="syrup"
+              :id="`r${syrup}`"
+              :value="Caramel"
+              v-model="currentSyrup"
+            />
+            {{ syrup }}
+          </label>
+        </template>
+      </li>
+      <li>
+        <template v-for="syrup in syrup" :key="syrup">
+          <label>
+            <input
+              type="radio"
+              name="syrup"
+              :id="`r${syrup}`"
+              :value="Hazelnut"
+              v-model="currentSyrup"
+            />
+            {{ syrup }}
+          </label>
+        </template>
+      </li>
+    </ul>
+  </div>
+
 </template>
 
 <script setup lang="ts">
