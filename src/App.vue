@@ -1,174 +1,96 @@
 <template>
   <div>
-    <Beverage :isIced="currentTemp === 'Cold'" />
-    <ul>
-      <li>
-        <template v-for="temp in temps" :key="temp">
-          <label>
+    <Beverage :isIced="currentTemp === 'iced'" :creamer="selectedCreamer" :syrup="selectedSyrup" :base="selectedBase" />
+    <div class="mt-4 grid grid-cols-1 gap-4">
+      <div>
+       
+        <div class="flex space-x-4">
+          <label v-for="temp in temps" :key="temp" class="flex items-center cursor-pointer">
             <input
               type="radio"
               name="temperature"
               :id="`r${temp}`"
               :value="temp"
               v-model="currentTemp"
+              class="mr-2"
+              @change="updateBeverage"
             />
-            {{ temp }}
+            <span class="capitalize">{{ temp }}</span>
           </label>
-        </template>
-      </li>
-    </ul>
-  </div>
-  <div>
-    <Beverage :base="currentBase === 'Coffee'" />
-    <ul>
-      <li>
-        <template v-for="base in base" :key="base">
-          <label>
-            <input
-              type="radio"
-              name="Coffee"
-              :id="`r${base}`"
-              :value="base"
-              v-model="currentBase"
-            />
-            {{ temp }}
-          </label>
-        </template>
-      </li>
-      <li>
-        <template v-for="base in base" :key="base">
-          <label>
-            <input
-              type="radio"
-              name="Black Tea"
-              :id="`r${base}`"
-              :value="base"
-              v-model="currentBase"
-            />
-            {{ temp }}
-          </label>
-        </template>
-      </li> 
-      <li>
-        <template v-for="base in base" :key="base">
-          <label>
-            <input
-              type="radio"
-              name="Green Tea"
-              :id="`r${base}`"
-              :value="base"
-              v-model="currentBase"
-            />
-            {{ temp }}
-          </label>
-        </template>
-      </li>     
-    </ul>
-  </div>
-  <div>
-    <Beverage :showCreamer="currentCreamer !=== 'No Creamer'" />
-    <ul>
-      <li>
-        <template v-for="creamer in creamer" :key="creamer">
-          <label>
+        </div>
+      </div>
+      <div>
+        
+        <div class="flex space-x-4">
+          <label v-for="creamer in creamers" :key="creamer" class="flex items-center cursor-pointer">
             <input
               type="radio"
               name="creamer"
-              :id="`r${creamer}`"
-              :value="Milk"
-              v-model="currentCreamer"
+              :id="`c${creamer}`"
+              :value="creamer"
+              v-model="selectedCreamer"
+              class="mr-2"
+              @change="updateBeverage"
             />
-            {{ creamer }}
+            <span class="capitalize">{{ creamer }}</span>
           </label>
-        </template>
-      </li>
-      <li>
-        <template v-for="creamer in creamer" :key="creamer">
-          <label>
+        </div>
+      </div>
+      <div>
+       
+        <div class="flex space-x-4">
+          <label v-for="syrup in syrups" :key="syrup" class="flex items-center cursor-pointer">
             <input
               type="radio"
-              name="creamer"
-              :id="`r${creamer}`"
-              :value="Cream"
-              v-model="currentCreamer"
+              name="syrup"
+              :id="`s${syrup}`"
+              :value="syrup"
+              v-model="selectedSyrup"
+              class="mr-2"
+              @change="updateBeverage"
             />
-            {{ creamer }}
+            <span class="capitalize">{{ syrup }}</span>
           </label>
-        </template>
-      </li>
-      <li>
-        <template v-for="creamer in creamer" :key="creamer">
-          <label>
+        </div>
+      </div>
+      <div>
+       
+        <div class="flex space-x-4">
+          <label v-for="base in bases" :key="base" class="flex items-center cursor-pointer">
             <input
               type="radio"
-              name="creamer"
-              :id="`r${creamer}`"
-              :value="Half-and-Half"
-              v-model="currentCreamer"
+              name="base"
+              :id="`b${base}`"
+              :value="base"
+              v-model="selectedBase"
+              class="mr-2"
+              @change="updateBeverage"
             />
-            {{ creamer }}
+            <span class="capitalize">{{ base }}</span>
           </label>
-        </template>
-      </li>
-    </ul>
+        </div>
+      </div>
+    </div>
   </div>
-
-    <div>
-    <Beverage :showSyrup="currentSyrup !=== 'No Syrup'" />
-    <ul>
-      <li>
-        <template v-for="syrup in syrup" :key="syrup">
-          <label>
-            <input
-              type="radio"
-              name="syrup"
-              :id="`r${syrup}`"
-              :value="Vanilla"
-              v-model="currentSyrup"
-            />
-            {{ syrup }}
-          </label>
-        </template>
-      </li>
-      <li>
-        <template v-for="syrup in syrup" :key="syrup">
-          <label>
-            <input
-              type="radio"
-              name="syrup"
-              :id="`r${syrup}`"
-              :value="Caramel"
-              v-model="currentSyrup"
-            />
-            {{ syrup }}
-          </label>
-        </template>
-      </li>
-      <li>
-        <template v-for="syrup in syrup" :key="syrup">
-          <label>
-            <input
-              type="radio"
-              name="syrup"
-              :id="`r${syrup}`"
-              :value="Hazelnut"
-              v-model="currentSyrup"
-            />
-            {{ syrup }}
-          </label>
-        </template>
-      </li>
-    </ul>
-  </div>
-
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import Beverage from "./components/Beverage.vue";
-// Define reactive data
-const temps = ref(["Hot", "Cold"]);
-const currentTemp = ref("Hot");
+
+const temps = ref(["hot", "iced"]);
+const creamers = ref([ "No Cream", "Milk", "Cream", "Half-and-Half"]);
+const syrups = ref([ "No Syrup", "Vanilla", "Caramel", "Hazelnut"]);
+const bases = ref(["Coffee", "Green-tea", "Black-tea"]);
+
+const currentTemp = ref("hot");
+const selectedCreamer = ref("No Cream");
+const selectedSyrup = ref("No Syrup");
+const selectedBase = ref("Coffee");
+
+function updateBeverage() {
+  console.log(`Ordered a ${selectedBase.value} with ${selectedCreamer.value} and ${selectedSyrup.value} syrup.`);
+}
 </script>
 
 <style lang="scss">
@@ -182,6 +104,7 @@ html {
   background-color: #6e4228;
   background: linear-gradient(to bottom, #6e4228 0%, #956f5a 100%);
 }
+
 ul {
   list-style: none;
 }

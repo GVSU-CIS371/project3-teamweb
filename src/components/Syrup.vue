@@ -32,8 +32,8 @@ const syrupStyle = computed(() => {
   z-index: 2;
 }
 
-@keyframes pour-tea {
-  0% { transform: translateY(400%); }
-  100% { transform: translateY(0); }
-}
+// @keyframes pour-tea {
+//   0% { transform: translateY(400%); }
+//   100% { transform: translateY(0); }
+// }
 </style>

@@ -1,19 +1,32 @@
 <template>
-  <Mug>
-    <Cold v-if="isIced" />
-    <Hot v-else />
-    <Contents>
-      <template v-slot:top>
-        <Creamer v-if="showCreamer" :creamer="creamer" :style="{ zIndex: creamerZIndex }" />
-      </template>
-      <template v-slot:mid>
-        <Syrup v-if="showSyrup" :syrup="syrup" :style="{ zIndex: syrupZIndex }" />
-      </template>
-      <template v-slot:bottom>
-        <Base :base="base" :style="{ zIndex: baseZIndex }" />
-      </template>
-    </Contents>
-  </Mug>
+  <div class="mug-container">
+    <Mug>
+      <Cold v-if="isIced" />
+      <Hot v-else />
+      <Contents>
+        <template #top>
+          <Creamer 
+            v-if="showCreamer" 
+            :creamer="creamer" 
+            :style="{ zIndex: creamerZIndex }"
+          />
+        </template>
+        <template #mid>
+          <Syrup 
+            v-if="showSyrup" 
+            :syrup="syrup" 
+            :style="{ zIndex: syrupZIndex }"
+          />
+        </template>
+        <template #bottom>
+          <Base 
+            :base="base" 
+            :style="{ zIndex: baseZIndex }"
+          />
+        </template>
+      </Contents>
+    </Mug>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -38,17 +51,26 @@ const props = defineProps<Props>();
 const showCreamer = computed(() => props.creamer !== 'No Cream');
 const showSyrup = computed(() => props.syrup !== 'No Syrup');
 
-// Define the dynamic z-index for each layer
-const creamerZIndex = computed(() => (showCreamer.value && !showSyrup.value ? 5 : 3));
-const syrupZIndex = computed(() => (showSyrup.value ? 3 : 0));
-const baseZIndex = computed(() => 2);
+// Adjust z-index values
+const baseZIndex = computed(() => 1);
+const syrupZIndex = computed(() => showSyrup.value ? 2 : 0);
+const creamerZIndex = computed(() => showCreamer.value ? 3 : 0);
 </script>
 
 <style scoped>
-.contents {
+.mug-container {
   position: relative;
-  height: 100%;
   width: 100%;
+  height: 100%;
+}
+
+.contents {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
 }
 
 .base, .syrup, .creamer {
@@ -56,13 +78,19 @@ const baseZIndex = computed(() => 2);
   left: 0;
   right: 0;
 }
+
 .base {
   bottom: 0;
+  height: 100%;
 }
+
 .syrup {
   bottom: 0;
+  height: 25%; 
 }
+
 .creamer {
   top: 0;
+  height: 30%; 
 }
 </style>
